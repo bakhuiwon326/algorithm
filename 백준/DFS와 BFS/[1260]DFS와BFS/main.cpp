@@ -30,8 +30,8 @@ void DFS(int v){
 
 // Queue 자료구조를 활용한 BFS 
 void BFS(int v){
-	// 우선, 처음으로 방문한 v노드를 queue에 push한다. 
-	q.push(v);
+	q.push(v); // 우선, 처음으로 방문한 v노드를 queue에 push한다.
+	visited[v] = true; // 첫번째 노드를 방문했다고 표시한다 
 	// 방문한 노드와 인접한 노드를  queue에 push하고, 인접한 노드를 알기 위해 기준이 되는 노드는 queue에서 pop 한다
 	// 모든 노드를 pop하여 queue가 비었으면 종료 
 	while(!q.empty()){ 
