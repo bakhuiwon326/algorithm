@@ -64,8 +64,8 @@ int main(){
 		map[b].push_back(a);
 	}
 	
-	// 각 인접리스트를 오름차순 정렬한다 
-	for(int i = 0; i < n; i++){
+	// 각 인접리스트를 오름차순 정렬한다 . map의 1번 인덱스부터 입력한 데이터가 담겨있기 때문에 1~n까지의 노드를 오름차순 정렬한다. 
+	for(int i = 1; i <= n; i++){
 		sort(map[i].begin(), map[i].end(), compare);
 	}
 	
