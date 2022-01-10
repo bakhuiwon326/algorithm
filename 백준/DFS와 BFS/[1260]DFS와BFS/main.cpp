@@ -3,7 +3,7 @@
 #include<algorithm>
 #include<queue>
 
-#define MAXN 1000
+#define MAXN 1001
 
 using namespace std;
 
@@ -16,14 +16,11 @@ queue<int> q; // 큐
 void DFS(int v){
 	visited[v] = true; // v노드를 방문 
 	cout << v << " "; // 방문한 노드를 출력 
-	if(v == n) return; // base case: 방문한 노드 v가 마지막 노드일 때 
-	else {
-		// v노드와 어떤 노드가 연결되어있는지 확인한다. 
-		for(int i = 0 ; i < map[v].size(); i++){
-			int node = map[v][i]; // v노드와 연결된 i번째 노드를 node에 저장한다 
-			if(!visited[node]){ // node가 아직 방문하지 않은 노드라면, DFS를 실행한다. 
-				DFS(node);
-			}
+	// v노드와 어떤 노드가 연결되어있는지 확인한다. 
+	for(int i = 0 ; i < map[v].size(); i++){
+		int node = map[v][i]; // v노드와 연결된 i번째 노드를 node에 저장한다 
+		if(!visited[node]){ // node가 아직 방문하지 않은 노드라면, DFS를 실행한다. 
+			DFS(node);
 		}
 	}
 }
@@ -80,8 +77,9 @@ int main(){
 	
 	cout << endl;
 	
-	// BFS 실행 
+	// BFS 실행
 	BFS(v); 
 	
 	return 0;
+	
 }
