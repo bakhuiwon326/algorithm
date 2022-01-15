@@ -2,7 +2,7 @@
 #include<vector>
 #include<algorithm>
 
-#define MAXN 51
+#define MAXN 52
 
 using namespace std;
 
@@ -15,8 +15,8 @@ vector<int> res;
 
 void init(){
 	cnt = 0;
-	for(int i = 0; i <= n; i++){
-		for(int j = 0; j <= n; j++){
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j < n; j++){
 			map[i][j] = 0;
 			visited[i][j] = false;
 		}
@@ -59,7 +59,7 @@ int main(){
 		res.push_back(cnt);
 	}
 	
-	// Ãâ·Â
+	// ì¶œë ¥
 	for(int i = 0; i < res.size(); i++){
 		cout << res[i] << endl;
 	} 
