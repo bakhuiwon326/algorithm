@@ -9,7 +9,7 @@ using namespace std;
 int n;
 int map[MAXN][MAXN];
 bool visited[MAXN][MAXN];
-vector<int> limit;
+int maxLimit; 
 vector<int> res;
 int dr[4] = {0,0,1,-1};
 int dc[4] = {1,-1,0,0};
@@ -21,7 +21,7 @@ void initAll(){
 			visited[i][j] = false;
 		}
 	}
-	limit.clear();
+	maxLimit = -1;
 }
 
 void initVisit(){
@@ -38,11 +38,11 @@ void DFS(int i , int j, int range){
 		int row = i + dr[p];
 		int col = j + dc[p];
 		if(row < 0 || row >= n || col < 0 || col >= n) continue;
-		if(map[row][col] - range > 0 && !visited[row][col]) DFS(row, col, range);
+		if(map[row][col] > range && !visited[row][col]) DFS(row, col, range);
 	}
 }
 
-// ë‚´ë¦¼ì°¨ìˆœ ì • 
+// ³»¸²Â÷¼ø Á¤ 
 bool compare(int a, int b){
 	return a > b;
 }
@@ -60,27 +60,23 @@ int main(){
 			int input;
 			cin >> input;
 			map[i][j] = input;
-			limit.push_back(input);
+			if(maxLimit < input) maxLimit = input;
 		}
 	}
 	
-	// ì¤‘ë³µì œê±° 
-	sort(limit.begin(), limit.end());
-	limit.erase(unique(limit.begin(), limit.end()), limit.end());
-	
-	// dfs ì‹¤í–‰ 
-	for(int t = 0 ; t < limit.size(); t++){
+	// dfs ½ÇÇà 
+	while(maxLimit--){
 		initVisit();
 		int cnt = 0;
 		for(int i = 0 ; i < n ; i++){
 			for(int j = 0 ; j < n ; j++){
-				if(map[i][j] - limit[t] > 0 && !visited[i][j]){
-					DFS(i , j, limit[t]);
-					cnt++;	
+				if(maxLimit >= 0 && map[i][j] > maxLimit && !visited[i][j]){
+					DFS(i , j, maxLimit);
+					cnt++;
 				}
 			}
 		}
-		res.push_back(cnt);	
+		res.push_back(cnt);
 	}
 	
 	sort(res.begin(), res.end(), compare);
