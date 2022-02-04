@@ -8,7 +8,8 @@ int score[301], dp[301][3];
 void init(){
 	for(int i = 0; i <= n ; i++){
 		score[i] = 0;
-		dp[i] = 0;
+		dp[i][1] = 0;
+		dp[i][2] = 0;
 	}
 }
 
@@ -33,11 +34,10 @@ int main(){
 	dp[2][2] = score[1] + score[2];
 	
 	for(int i = 3 ; i <= n; i++){
-		dp[i][1] = max(dp[i-2], dp[i-2][2]) + score[i];
-		dp[i][2] = d[i-1][1] + score[i];
+		dp[i][1] = max(dp[i-2][1], dp[i-2][2]) + score[i];
+		dp[i][2] = dp[i-1][1] + score[i];
 	}
 	
 	printf("%d", dp[n]);
 	
 }
-
