@@ -1,11 +1,11 @@
 #include<iostream>
 
-#define MAXN 21
+#define MAXN 41
 
 using namespace std;
 
 int t, n;
-int dp[MAXN][MAXN];  
+int dp[MAXN][2];
 
 void init(){
 	for(int i = 0; i <= n ; i++ ){
@@ -32,7 +32,6 @@ int main(){
 			dp[i][0] = dp[i-1][0] + dp[i-2][0];
 			dp[i][1] = dp[i-1][1] + dp[i-2][1];
 		}
-		
 		printf("%d %d\n", dp[n][0], dp[n][1]);	
 	}
 	
