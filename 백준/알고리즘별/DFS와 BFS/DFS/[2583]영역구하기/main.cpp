@@ -2,86 +2,73 @@
 #include<vector>
 #include<algorithm>
 
-# define MAXN 101
+#define MAXN 101
 
 using namespace std;
 
-int n , m, k, cnt, res;
+int n, m, k, cnt;
 int map[MAXN][MAXN];
 bool visited[MAXN][MAXN];
 vector<int> area;
+int dr[4] = { 0,0,-1,1 };
+int dc[4] = { 1,-1,0,0 };
 
-int dr[4] = {0,0,1,-1};
-int dc[4] = {1,-1,0,0};
+void DFS(int row, int col) {
 
-void init(){
-	for(int i = 0 ; i <= n; i++){
-		for(int j = 0; j <= m; j++){
-			map[i][j] = 0;
-			visited[i][j] = false;
-		}
+	cnt++;
+	visited[row][col] = true;
+	
+	for (int i = 0; i < 4; i++) {
+		int x = row + dr[i];
+		int y = col + dc[i];
+		if (x >= 0 && x < m && y >= 0 && y < n) {
+			if (map[x][y] == 0 && !visited[x][y]) {
+				DFS(x, y);
+			}
+		 }
 	}
-	area.clear();
-	cnt = 0;
-	res = 0;
+
+
 }
 
-void DFS(int i , int j){
-	visited[i][j] = true;
-	for(int i = 0 ; i < 4; i++){
-		int row = i + dr[i];
-		int col = j + dc[i];
-		if(!visited[row][col] && map[row][col] == 1){
-			res++;
-			DFS(row, col);
-		}
-	}
-}
+int main() {
 
-int main(){
-	
-	std::ios::sync_with_stdio(false);
-	
-	cin >> n >> m >> k;
-	
-	for(int i = 0 ; i < k; i++){
-		int a,b; // ì™¼ìª½ ì•„ëž˜ 
-		int c,d; // ì˜¤ë¥¸ìª½ ìœ„
-		cin >> a >> b >> c >> d;
-		int x = d - b;
-		int y = c - a;
-		for(int j = 0; j < x; j++){
-			for(int p = 0 ; p < y ; p++){
-				map[x + j][y + p] = 1;
+	scanf("%d %d %d", &m, &n, &k);
+
+	// Á÷»ç°¢Çü Ã¤¿ì±â
+	for (int i = 0; i < k; i++) {
+		
+		int a, b, c, d;
+		scanf("%d %d %d %d", &a, &b, &c, &d);
+		
+		for (int j = b; j < d; j++) {
+			for (int l = a; l < c; l++) {
+				map[j][l] = 1;
+			}
+		}
+
+	}
+
+	// DFS ½ÇÇà
+	for (int i = 0; i < m; i++) {
+		for (int j = 0; j < n; j++) {
+			if (!visited[i][j] && map[i][j] == 0) {
+				DFS(i, j);
+				area.push_back(cnt);
+				cnt = 0;
 			}
 		}
 	}
-	
-	cout << "***********************************************************" << endl;
-	
-	for(int i = 0 ; i < n ; i++){
-		for(int j = 0 ; j < m ; j++){
-			cout << map[i][j] << " ";
-		}
-		cout << endl;
+
+	printf("%d\n", area.size());
+
+	sort(area.begin(), area.end());
+
+	for (int i = 0; i < area.size(); i++) {
+		printf("%d ", area[i]);
 	}
-	
-	// dfs
-	for(int i = 0; i < n; i++) {
-		for(int j = 0 ; j < m; j++){
-			if(map[i][j] == 1 && !visited[i][j]){
-				DFS(i,j);
-				cnt++;
-				area.push_back(res);
-				res = 0;
-			}
-		}
-	}
-	
-	cout << cnt << endl;
-	
-	for(int i = 0; i < area.size(); i++) cout << area[i] << " ";
+
+
+
 	return 0;
 }
-
-
